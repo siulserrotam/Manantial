@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Manantial.Api.Data;
+using Infraestructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

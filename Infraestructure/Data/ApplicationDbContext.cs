@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Manantial.Api.Data
+namespace Infraestructure.Data
 {
     public class ApplicationDbContext : DbContext
     {
