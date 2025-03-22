@@ -3,7 +3,7 @@ using Manantial.Core.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Manantial.Core.Services
+namespace Manantial.Application.Services
 {
     public class ServicioBarrio
     {
@@ -53,9 +53,13 @@ namespace Manantial.Core.Services
         }
 
         // Método para eliminar un barrio
-        public async Task EliminarBarrioAsync(int idBarrio)
+        public async Task EliminarBarrioAsync(String idBarrio)
         {
-            await _repositorioBarrio.EliminarAsync(idBarrio);
+             // Convertir de string a int
+            int idBarrioInt = int.Parse(idBarrio);
+
+            // Llamar al repositorio con el id como int
+            await _repositorioBarrio.EliminarAsync(idBarrioInt);
         }
     }
 }

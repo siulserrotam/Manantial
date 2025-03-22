@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Manantial.Core.Entities;
 
-namespace Manantial.Core.Services
+namespace Manantial.Application.Services
 {
     public class ServicioMarca
     {
@@ -42,12 +43,5 @@ namespace Manantial.Core.Services
             // Reemplazar con la lógica real de eliminación
             return await Task.FromResult(true);
         }
-    }
-
-    // Clase de ejemplo para el modelo "Marca"
-    public class Marca
-    {
-        public int Id { get; set; }
-        public string Descripcion { get; set; }
     }
 }

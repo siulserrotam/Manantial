@@ -2,7 +2,7 @@ using Manantial.Core.Entities;
 using Manantial.Core.Interfaces;
 using System.Threading.Tasks;
 
-namespace Manantial.Core.Services
+namespace Manantial.Application.Services
 {
     public class ServicioDetalleVenta
     {

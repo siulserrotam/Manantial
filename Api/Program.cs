@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Infraestructure.Data;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,22 +12,28 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddControllers(); // Para manejar controladores si los necesitas en el futuro
 builder.Services.AddEndpointsApiExplorer(); // Si quieres usar OpenAPI
-//builder.Services.AddSwaggerGen(); // Para la documentación de la API si lo deseas
+
+// Registra Swagger para generar la documentación de la API
+builder.Services.AddSwaggerGen(
+    c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Manantial.api", Version = "v1" });
+    }
+);
 
 var app = builder.Build();
-/*
+
 // Configurar la tubería de solicitud HTTP.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(); // Habilitar Swagger solo en desarrollo
-    app.UseSwaggerUI(); // Interfaz de usuario de Swagger
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Manantial API v1");
+        c.RoutePrefix = string.Empty; // Para mostrar la UI de Swagger en la raíz de la web (opcional)
+    }); 
 }
-*/
+
 app.UseHttpsRedirection(); // Redirección de HTTP a HTTPS
-
-// Aquí eliminarás cualquier controlador de ejemplo, como `/weatherforecast`
-// Ahora puedes añadir tus propios controladores de API cuando los crees
-
-app.MapControllers(); // Asegúrate de mapear los controladores de la API
 
 app.Run();

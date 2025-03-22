@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Manantial.Core.Interfaces
+namespace Manantial.Application.Interfaces
 {
     public interface IServicioCorreo
     {

@@ -17,22 +17,24 @@ namespace Manantial.Core.Services
 
         public async Task<Venta> RealizarVentaAsync(Venta venta)
         {
+            
+            /*
             // Lógica de negocio: Validar productos, actualizar inventarios, calcular monto total, etc.
             var productosDisponibles = await _repositorioProducto.ObtenerProductosDisponiblesAsync();
             if (!productosDisponibles.Any(p => p.Id == venta.Fk_IdProducto))
             {
                 throw new Exception("Producto no disponible.");
-            }
+            }*/
 
             // Ejemplo de actualización de inventario (si es necesario)
-            var producto = await _repositorioProducto.ObtenerPorIdAsync(venta.Fk_IdProducto);
+            /*var producto = await _repositorioProducto.ObtenerPorIdAsync(venta.Fk_IdProducto);
             if (producto.Cantidad < venta.TotalProducto)
             {
                 throw new Exception("No hay suficiente stock.");
-            }
+            }*/
 
             // Crear la venta
-            venta.FechaVenta = DateTime.Now;
+          //  venta.FechaVenta = DateTime.Now;
             venta.MontoTotal = CalcularMontoTotal(venta);
 
             // Guardar la venta en el repositorio
@@ -45,7 +47,7 @@ namespace Manantial.Core.Services
         private decimal CalcularMontoTotal(Venta venta)
         {
             // Ejemplo simple de cálculo de monto total (esto depende de tu lógica de negocio)
-            var producto = _repositorioProducto.ObtenerPorIdAsync(venta.Fk_IdProducto).Result;
+            var producto = _repositorioProducto.ObtenerPorIdAsync(venta.TotalProducto).Result;
             return producto.Precio * venta.TotalProducto;
         }
     }

@@ -1,8 +1,9 @@
+//SERVICIO DE CORREO APPLICATION
 using System;
 using System.Threading.Tasks;
-using Manantial.Core.Interfaces;
+using Manantial.Application.Interfaces;
 
-namespace Manantial.Core.Services
+namespace Manantial.Application.Services
 {
     public class ServiceCorreo : IServicioCorreo
     {

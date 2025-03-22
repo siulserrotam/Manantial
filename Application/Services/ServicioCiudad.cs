@@ -3,7 +3,7 @@ using Manantial.Core.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Manantial.Core.Services
+namespace Manantial.Application.Services
 {
     public class ServicioCiudad
     {
@@ -49,7 +49,11 @@ namespace Manantial.Core.Services
         // Método para eliminar una ciudad
         public async Task EliminarCiudadAsync(string idCiudad)
         {
-            await _repositorioCiudad.EliminarAsync(idCiudad);
+            // Convertir de string a int
+            int idCiudadInt = int.Parse(idCiudad);
+
+            // Llamar al repositorio con el id como int
+            await _repositorioCiudad.EliminarAsync(idCiudadInt);
         }
     }
 }

@@ -3,7 +3,7 @@ using Manantial.Core.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Manantial.Core.Services
+namespace Manantial.Application.Services
 {
     public class ServicioDepartamento
     {
@@ -43,7 +43,11 @@ namespace Manantial.Core.Services
         // Método para eliminar un departamento
         public async Task EliminarDepartamentoAsync(string idDepartamento)
         {
-            await _repositorioDepartamento.EliminarAsync(idDepartamento);
+            // Convertir de string a int
+            int idDepartamentoInt = int.Parse(idDepartamento);
+
+            // Llamar al repositorio con el id como int
+            await _repositorioDepartamento.EliminarAsync(idDepartamentoInt);
         }
     }
 }
