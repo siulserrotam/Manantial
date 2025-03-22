@@ -1,6 +1,7 @@
+
 namespace Manantial.Core.Entities
 {
-    public class Venta : BaseEntity
+    public class Venta : EntidadBase
     {
         public int Fk_IdCliente { get; set; }
         public Cliente Cliente { get; set; }
@@ -11,6 +12,7 @@ namespace Manantial.Core.Entities
         public string Telefono { get; set; }
         public string Direccion { get; set; }
         public string IdTransaccion { get; set; }
+        public DateTime FechaVenta { get; internal set; }
     }
  
 }

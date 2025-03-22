@@ -1,6 +1,6 @@
 namespace Manantial.Core.Entities
 {
-        public class Cliente : BaseEntity
+    public class Cliente : EntidadBase
     {
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
@@ -8,5 +8,4 @@ namespace Manantial.Core.Entities
         public string Clave { get; set; }
         public bool Restablecer { get; set; } = false;
     }
-
 }

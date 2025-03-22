@@ -1,6 +1,6 @@
-namespace Manantial.Core.Entities
+namespace Manantial.Core.Entities 
 {
-        public class Producto : BaseEntity
+    public class Producto : EntidadBase
     {
         public string Nombre { get; set; }
         public string Descripcion { get; set; }

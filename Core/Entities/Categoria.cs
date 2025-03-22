@@ -1,8 +1,7 @@
 namespace Manantial.Core.Entities
 {
-    public class Categoria : BaseEntity
+    public class Categoria : EntidadBase
     {
         public string Descripcion { get; set; }
     }
-
 }
