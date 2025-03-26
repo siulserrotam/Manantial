@@ -1,0 +1,58 @@
+[
+    {
+      "Nombre": "Smartphone Samsung Galaxy",
+      "Descripcion": "Smartphone de alta gama",
+      "Fk_IdMarca": 1,
+      "Fk_IdCategoria": 1,
+      "Precio": 500.00,
+      "Stock": 100,
+      "RutaImagen": "/images/samsung.jpg",
+      "NombreImagen": "samsung.jpg",
+      "Activo": true
+    },
+    {
+      "Nombre": "Camiseta Nike",
+      "Descripcion": "Camiseta deportiva de la marca Nike",
+      "Fk_IdMarca": 2,
+      "Fk_IdCategoria": 2,
+      "Precio": 30.00,
+      "Stock": 150,
+      "RutaImagen": "/images/nike.jpg",
+      "NombreImagen": "nike.jpg",
+      "Activo": true
+    },
+    {
+      "Nombre": "Televisor Sony 4K",
+      "Descripcion": "Televisor con resolución 4K",
+      "Fk_IdMarca": 3,
+      "Fk_IdCategoria": 1,
+      "Precio": 800.00,
+      "Stock": 50,
+      "RutaImagen": "/images/sony_tv.jpg",
+      "NombreImagen": "sony_tv.jpg",
+      "Activo": true
+    },
+    {
+      "Nombre": "Silla de oficina",
+      "Descripcion": "Silla ergonómica para oficina",
+      "Fk_IdMarca": 5,
+      "Fk_IdCategoria": 3,
+      "Precio": 120.00,
+      "Stock": 200,
+      "RutaImagen": "/images/silla_oficina.jpg",
+      "NombreImagen": "silla_oficina.jpg",
+      "Activo": true
+    },
+    {
+      "Nombre": "Bicicleta infantil",
+      "Descripcion": "Bicicleta para niños de 5 a 10 años",
+      "Fk_IdMarca": 4,
+      "Fk_IdCategoria": 4,
+      "Precio": 150.00,
+      "Stock": 75,
+      "RutaImagen": "/images/bicicleta_infantil.jpg",
+      "NombreImagen": "bicicleta_infantil.jpg",
+      "Activo": true
+    }
+  ]
+  

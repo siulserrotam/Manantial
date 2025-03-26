@@ -1,8 +1,8 @@
 namespace Manantial.Core.Entities
 {
-        public class Barrio
+    public class Barrio
     {
-        public string IdBarrio { get; set; }
+        public string IdBarrio { get; set; }  // Esto será la clave primaria según la convención de EF Core.
         public string Descripcion { get; set; }
         public string Fk_IdDepartamento { get; set; }
         public Departamento Departamento { get; set; }

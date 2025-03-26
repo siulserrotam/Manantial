@@ -1,0 +1,48 @@
+[
+    {
+      "IdCliente": 1,
+      "Nombres": "Cliente Demo 1",
+      "Apellidos": "Demo 1",
+      "Correo": "demo1@ejemplo.com",
+      "Clave": "demo",
+      "Restablecer": false,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    },
+    {
+      "IdCliente": 2,
+      "Nombres": "Cliente Demo 2",
+      "Apellidos": "Demo 2",
+      "Correo": "demo2@ejemplo.com",
+      "Clave": "demo",
+      "Restablecer": false,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    },
+    {
+      "IdCliente": 3,
+      "Nombres": "Cliente Demo 3",
+      "Apellidos": "Demo 3",
+      "Correo": "demo3@ejemplo.com",
+      "Clave": "demo",
+      "Restablecer": false,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    },
+    {
+      "IdCliente": 4,
+      "Nombres": "Cliente Demo 4",
+      "Apellidos": "Demo 4",
+      "Correo": "demo4@ejemplo.com",
+      "Clave": "demo",
+      "Restablecer": false,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    },
+    {
+      "IdCliente": 5,
+      "Nombres": "Cliente Demo 5",
+      "Apellidos": "Demo 5",
+      "Correo": "demo5@ejemplo.com",
+      "Clave": "demo",
+      "Restablecer": false,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    }
+  ]
+  

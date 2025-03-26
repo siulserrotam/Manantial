@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Manantial.Core.Specifications
+namespace Manantial.Core.Interfaces
 {
     public interface IEspecificacion<T>
     {
@@ -12,5 +12,6 @@ namespace Manantial.Core.Specifications
         int Tomar { get; }
         int Omitir { get; }
         bool EsPaginacionHabilitada { get; }
+        object Includes { get; }
     }
 }

@@ -1,0 +1,23 @@
+[
+    {
+      "Descripcion": "Samsung",
+      "Activo": true
+    },
+    {
+      "Descripcion": "Nike",
+      "Activo": true
+    },
+    {
+      "Descripcion": "Sony",
+      "Activo": true
+    },
+    {
+      "Descripcion": "Apple",
+      "Activo": true
+    },
+    {
+      "Descripcion": "LG",
+      "Activo": true
+    }
+  ]
+  

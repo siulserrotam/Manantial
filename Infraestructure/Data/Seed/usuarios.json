@@ -1,0 +1,53 @@
+[
+    {
+      "IdUsuario": 1,
+      "Nombres": "Admin",
+      "Apellidos": "Admin",
+      "Correo": "admin@ejemplo.com",
+      "Clave": "admin123",
+      "Restablecer": true,
+      "Activo": true,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    },
+    {
+      "IdUsuario": 2,
+      "Nombres": "Usuario Demo 1",
+      "Apellidos": "Demo 1",
+      "Correo": "usudemo1@ejemplo.com",
+      "Clave": "demo",
+      "Restablecer": false,
+      "Activo": true,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    },
+    {
+      "IdUsuario": 3,
+      "Nombres": "Usuario Demo 2",
+      "Apellidos": "Demo 2",
+      "Correo": "usudemo2@ejemplo.com",
+      "Clave": "demo",
+      "Restablecer": false,
+      "Activo": true,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    },
+    {
+      "IdUsuario": 4,
+      "Nombres": "Usuario Demo 3",
+      "Apellidos": "Demo 3",
+      "Correo": "usudemo3@ejemplo.com",
+      "Clave": "demo",
+      "Restablecer": false,
+      "Activo": true,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    },
+    {
+      "IdUsuario": 5,
+      "Nombres": "Usuario Demo 4",
+      "Apellidos": "Demo 4",
+      "Correo": "usudemo4@ejemplo.com",
+      "Clave": "demo",
+      "Restablecer": false,
+      "Activo": true,
+      "FechaRegistro": "2025-03-25T00:00:00"
+    }
+  ]
+  

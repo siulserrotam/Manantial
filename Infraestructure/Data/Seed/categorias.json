@@ -1,0 +1,23 @@
+[
+    {
+      "Descripcion": "Electrónica",
+      "Activo": true
+    },
+    {
+      "Descripcion": "Ropa",
+      "Activo": true
+    },
+    {
+      "Descripcion": "Hogar",
+      "Activo": true
+    },
+    {
+      "Descripcion": "Juguetes",
+      "Activo": true
+    },
+    {
+      "Descripcion": "Alimentos",
+      "Activo": true
+    }
+  ]
+  

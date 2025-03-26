@@ -1,0 +1,19 @@
+[
+    {
+        "IdDepartamento": "01",
+        "Descripcion": "Bogotá"
+    },
+    {
+      "IdDepartamento": "02",
+      "Descripcion": "Amazonas"
+    },
+    {
+      "IdDepartamento": "03",
+      "Descripcion": "Antioquia"
+    },
+    {
+      "IdDepartamento": "04",
+      "Descripcion": "Atlántico"
+    }   
+  ]
+  

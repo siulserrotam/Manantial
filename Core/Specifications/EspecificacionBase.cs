@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Manantial.Core.Interfaces;
 
 namespace Manantial.Core.Specifications
 {
@@ -19,6 +20,8 @@ namespace Manantial.Core.Specifications
         public int Tomar { get; private set; }
         public int Omitir { get; private set; }
         public bool EsPaginacionHabilitada => Tomar > 0;
+
+        public object Includes => throw new NotImplementedException();
 
         public EspecificacionBase<T> AgregarIncluir(Expression<Func<T, object>> expresionIncluir)
         {
