@@ -6,10 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Manantial.Infraestructura.Datos;
-using Manantial.Infraestructure.Data;  // Ajuste a tu namespace para el contexto de la base de datos
+using Manantial.Infraestructure.Data;
 
-namespace Manantial.Infraestructura.Datos
+namespace Manantial.Infraestructure.Data
 {
     public class SemillaContextoTienda
     {
@@ -18,13 +17,10 @@ namespace Manantial.Infraestructura.Datos
         {
             try
             {
-                // Verificar si la tabla CATEGORIA tiene datos
+                // Sembrar Categorías
                 if (!contexto.Categorias.Any())
                 {
-                    // Si no existen categorías, lee el archivo JSON que contiene los datos de las categorías.
-                    var categoriasData = File.ReadAllText("../Manantial.Infraestructura/Datos/Seed/categorias.json");
-
-                    // Deserializa el contenido del archivo JSON a una lista de objetos Categoria.
+                    var categoriasData = File.ReadAllText("../Infraestructure/Data/Seed/categorias.json");
                     var categorias = JsonSerializer.Deserialize<List<Categoria>>(categoriasData);
 
                     // Itera a través de las categorías deserializadas y las agrega a la base de datos.
@@ -37,13 +33,10 @@ namespace Manantial.Infraestructura.Datos
                     await contexto.SaveChangesAsync();
                 }
 
-                // Verificar si la tabla MARCA tiene datos
+                // Sembrar Marcas
                 if (!contexto.Marcas.Any())
                 {
-                    // Si no existen marcas, lee el archivo JSON que contiene los datos de las marcas.
-                    var marcasData = File.ReadAllText("../Manantial.Infraestructura/Datos/Seed/marcas.json");
-
-                    // Deserializa el contenido del archivo JSON a una lista de objetos Marca.
+                    var marcasData = File.ReadAllText("../Infraestructure/Data/Seed/marcas.json");
                     var marcas = JsonSerializer.Deserialize<List<Marca>>(marcasData);
 
                     // Itera a través de las marcas deserializadas y las agrega a la base de datos.
@@ -51,37 +44,92 @@ namespace Manantial.Infraestructura.Datos
                     {
                         contexto.Marcas.Add(item);
                     }
+                    await contexto.SaveChangesAsync();  // Guarda las marcas primero
+                }
 
-                    // Guarda los cambios en la base de datos de forma asincrónica.
+                // Sembrar Departamentos
+                if (!contexto.Departamentos.Any())
+                {
+                    var departamentosData = File.ReadAllText("../Infraestructure/Data/Seed/departamentos.json");
+                    var departamentos = JsonSerializer.Deserialize<List<Departamento>>(departamentosData);
+                    foreach (var item in departamentos)
+                    {
+                        contexto.Departamentos.Add(item);
+                    }
                     await contexto.SaveChangesAsync();
                 }
 
-                // Verificar si la tabla PRODUCTO tiene datos
-                if (!contexto.Productos.Any())
+                // Sembrar Ciudades
+                if (!contexto.Ciudades.Any())
                 {
-                    // Si no existen productos, lee el archivo JSON que contiene los datos de los productos.
-                    var productosData = File.ReadAllText("../Manantial.Infraestructura/Datos/Seed/productos.json");
-
-                    // Deserializa el contenido del archivo JSON a una lista de objetos Producto.
-                    var productos = JsonSerializer.Deserialize<List<Producto>>(productosData);
-
-                    // Itera a través de los productos deserializados y los agrega a la base de datos.
-                    foreach (var item in productos)
+                    var ciudadesData = File.ReadAllText("../Infraestructure/Data/Seed/ciudades.json");
+                    var ciudades = JsonSerializer.Deserialize<List<Ciudad>>(ciudadesData);
+                    foreach (var item in ciudades)
                     {
-                        contexto.Productos.Add(item);
+                        contexto.Ciudades.Add(item);
+                    }
+                    await contexto.SaveChangesAsync();
+                }
+
+                // Sembrar Barrios
+                if (!contexto.Barrios.Any())
+                {
+                    var barriosData = File.ReadAllText("../Infraestructure/Data/Seed/barrios.json");
+                    var barrios = JsonSerializer.Deserialize<List<Barrio>>(barriosData);
+
+                    foreach (var item in barrios)
+                    {
+                        // Verificar si las claves foráneas existen antes de agregar el barrio
+                        var departamento = await contexto.Departamentos.FindAsync(item.Fk_IdDepartamento);
+                        var ciudad = await contexto.Ciudades.FindAsync(item.Fk_IdCiudad);
+
+                        if (departamento != null && ciudad != null)
+                        {
+                            contexto.Barrios.Add(item);
+                        }
                     }
 
-                    // Guarda los cambios en la base de datos de forma asincrónica.
                     await contexto.SaveChangesAsync();
                 }
 
-                // Verificar si la tabla CLIENTE tiene datos
+                // Sembrar Productos
+                if (!contexto.Productos.Any())
+                {
+                    var productosData = File.ReadAllText("../Infraestructure/Data/Seed/productos.json");
+                    var productos = JsonSerializer.Deserialize<List<Producto>>(productosData);
+
+                    // Verificar que las marcas y categorías existen antes de insertar los productos
+                    foreach (var item in productos)
+                    {
+                        var marca = contexto.Marcas.FirstOrDefault(m => m.Id == item.Fk_IdMarca);
+                        var categoria = contexto.Categorias.FirstOrDefault(c => c.Id == item.Fk_IdCategoria);
+
+                        if (marca != null && categoria != null)
+                        {
+                            item.Marca = marca;  // Establecer relación con Marca
+                            item.Categoria = categoria;  // Establecer relación con Categoría
+                            contexto.Productos.Add(item);
+                        }
+                        else
+                        {
+                            var logger = loggerFactory.CreateLogger<SemillaContextoTienda>();
+                            if (marca == null)
+                            {
+                                logger.LogWarning($"Marca con Id {item.Fk_IdMarca} no encontrada para el producto {item.Nombre}");
+                            }
+                            if (categoria == null)
+                            {
+                                logger.LogWarning($"Categoría con Id {item.Fk_IdCategoria} no encontrada para el producto {item.Nombre}");
+                            }
+                        }
+                    }
+                    await contexto.SaveChangesAsync();
+                }
+
+                // Sembrar Clientes
                 if (!contexto.Clientes.Any())
                 {
-                    // Si no existen clientes, lee el archivo JSON que contiene los datos de los clientes.
-                    var clientesData = File.ReadAllText("../Manantial.Infraestructura/Datos/Seed/clientes.json");
-
-                    // Deserializa el contenido del archivo JSON a una lista de objetos Cliente.
+                    var clientesData = File.ReadAllText("../Infraestructure/Data/Seed/clientes.json");
                     var clientes = JsonSerializer.Deserialize<List<Cliente>>(clientesData);
 
                     // Itera a través de los clientes deserializados y los agrega a la base de datos.
@@ -94,13 +142,10 @@ namespace Manantial.Infraestructura.Datos
                     await contexto.SaveChangesAsync();
                 }
 
-                // Verificar si la tabla USUARIO tiene datos
+                // Sembrar Usuarios
                 if (!contexto.Usuarios.Any())
                 {
-                    // Si no existen usuarios, lee el archivo JSON que contiene los datos de los usuarios.
-                    var usuariosData = File.ReadAllText("../Manantial.Infraestructura/Datos/SeedData/usuarios.json");
-
-                    // Deserializa el contenido del archivo JSON a una lista de objetos Usuario.
+                    var usuariosData = File.ReadAllText("../Infraestructure/Data/Seed/usuarios.json");
                     var usuarios = JsonSerializer.Deserialize<List<Usuario>>(usuariosData);
 
                     // Itera a través de los usuarios deserializados y los agrega a la base de datos.
@@ -117,7 +162,7 @@ namespace Manantial.Infraestructura.Datos
                 if (!contexto.Barrios.Any())
                 {
                     // Si no existen barrios, lee el archivo JSON que contiene los datos de los barrios.
-                    var barriosData = File.ReadAllText("../Manantial.Infraestructura/Datos/SeedData/barrios.json");
+                    var barriosData = File.ReadAllText("../Infraestructure/Data/Seed/barrios.json");
 
                     // Deserializa el contenido del archivo JSON a una lista de objetos Barrio.
                     var barrios = JsonSerializer.Deserialize<List<Barrio>>(barriosData);

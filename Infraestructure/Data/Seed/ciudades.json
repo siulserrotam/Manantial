@@ -1,0 +1,32 @@
+[
+  {
+    "IdCiudad": "0101",
+    "Descripcion": "Bogotá D.C.",
+    "Fk_IdDepartamento": "01"
+  },
+  {
+    "IdCiudad": "0201",
+    "Descripcion": "Leticia",
+    "Fk_IdDepartamento": "02"
+  },
+  {
+    "IdCiudad": "0301",
+    "Descripcion": "Medellín",
+    "Fk_IdDepartamento": "03"
+  },
+  {
+    "IdCiudad": "0302",
+    "Descripcion": "Bello",
+    "Fk_IdDepartamento": "03"
+  },
+  {
+    "IdCiudad": "0401",
+    "Descripcion": "Barranquilla",
+    "Fk_IdDepartamento": "04"
+  },
+  {
+    "IdCiudad": "0402",
+    "Descripcion": "Soledad",
+    "Fk_IdDepartamento": "04"
+  }
+]

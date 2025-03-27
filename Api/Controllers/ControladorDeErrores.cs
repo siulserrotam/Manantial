@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Manantial.Api.Controllers;
+using Manantial.Infraestructure.Data;
 
 namespace Manantial.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ControladorDeErrores : ControllerBase
+    public class ControladorDeErrores : ControladorBaseApi
     {
          // Método para manejar errores globales de la aplicación
         [Route("/error")]

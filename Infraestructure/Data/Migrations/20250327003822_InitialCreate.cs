@@ -98,6 +98,7 @@ namespace Infraestructure.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Fk_IdCliente = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
                     TotalProducto = table.Column<int>(type: "int", nullable: false),
                     MontoTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Contacto = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -113,11 +114,11 @@ namespace Infraestructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_Ventas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ventas_Clientes_Fk_IdCliente",
-                        column: x => x.Fk_IdCliente,
+                        name: "FK_Ventas_Clientes_ClienteId",
+                        column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,15 +127,14 @@ namespace Infraestructure.Data.Migrations
                 {
                     IdCiudad = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Fk_IdDepartamento = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DepartamentoIdDepartamento = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Fk_IdDepartamento = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ciudades", x => x.IdCiudad);
                     table.ForeignKey(
-                        name: "FK_Ciudades_Departamentos_DepartamentoIdDepartamento",
-                        column: x => x.DepartamentoIdDepartamento,
+                        name: "FK_Ciudades_Departamentos_Fk_IdDepartamento",
+                        column: x => x.Fk_IdDepartamento,
                         principalTable: "Departamentos",
                         principalColumn: "IdDepartamento",
                         onDelete: ReferentialAction.Cascade);
@@ -193,13 +193,13 @@ namespace Infraestructure.Data.Migrations
                         column: x => x.Fk_IdCiudad,
                         principalTable: "Ciudades",
                         principalColumn: "IdCiudad",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Barrios_Departamentos_Fk_IdDepartamento",
                         column: x => x.Fk_IdDepartamento,
                         principalTable: "Departamentos",
                         principalColumn: "IdDepartamento",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,24 +209,26 @@ namespace Infraestructure.Data.Migrations
                     IdCarrito = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Fk_IdCliente = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
                     Fk_IdProducto = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carritos", x => x.IdCarrito);
                     table.ForeignKey(
-                        name: "FK_Carritos_Clientes_Fk_IdCliente",
-                        column: x => x.Fk_IdCliente,
+                        name: "FK_Carritos_Clientes_ClienteId",
+                        column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Carritos_Productos_Fk_IdProducto",
-                        column: x => x.Fk_IdProducto,
+                        name: "FK_Carritos_Productos_ProductoId",
+                        column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -268,19 +270,19 @@ namespace Infraestructure.Data.Migrations
                 column: "Fk_IdDepartamento");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carritos_Fk_IdCliente",
+                name: "IX_Carritos_ClienteId",
                 table: "Carritos",
-                column: "Fk_IdCliente");
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carritos_Fk_IdProducto",
+                name: "IX_Carritos_ProductoId",
                 table: "Carritos",
-                column: "Fk_IdProducto");
+                column: "ProductoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ciudades_DepartamentoIdDepartamento",
+                name: "IX_Ciudades_Fk_IdDepartamento",
                 table: "Ciudades",
-                column: "DepartamentoIdDepartamento");
+                column: "Fk_IdDepartamento");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DetallesVenta_Fk_IdProducto",
@@ -303,9 +305,9 @@ namespace Infraestructure.Data.Migrations
                 column: "MarcaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ventas_Fk_IdCliente",
+                name: "IX_Ventas_ClienteId",
                 table: "Ventas",
-                column: "Fk_IdCliente");
+                column: "ClienteId");
         }
 
         /// <inheritdoc />

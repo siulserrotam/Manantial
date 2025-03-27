@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructure.Data.Migrations
 {
     [DbContext(typeof(ContextoTienda))]
-    [Migration("20250326035235_InitialCreate")]
+    [Migration("20250327003822_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -62,17 +62,23 @@ namespace Infraestructure.Data.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Fk_IdCliente")
                         .HasColumnType("int");
 
                     b.Property<int>("Fk_IdProducto")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
                     b.HasKey("IdCarrito");
 
-                    b.HasIndex("Fk_IdCliente");
+                    b.HasIndex("ClienteId");
 
-                    b.HasIndex("Fk_IdProducto");
+                    b.HasIndex("ProductoId");
 
                     b.ToTable("Carritos");
                 });
@@ -105,20 +111,17 @@ namespace Infraestructure.Data.Migrations
                     b.Property<string>("IdCiudad")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("DepartamentoIdDepartamento")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Fk_IdDepartamento")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("IdCiudad");
 
-                    b.HasIndex("DepartamentoIdDepartamento");
+                    b.HasIndex("Fk_IdDepartamento");
 
                     b.ToTable("Ciudades");
                 });
@@ -333,6 +336,9 @@ namespace Infraestructure.Data.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Contacto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -370,7 +376,7 @@ namespace Infraestructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Fk_IdCliente");
+                    b.HasIndex("ClienteId");
 
                     b.ToTable("Ventas");
                 });
@@ -380,13 +386,13 @@ namespace Infraestructure.Data.Migrations
                     b.HasOne("Manantial.Core.Entities.Ciudad", "Ciudad")
                         .WithMany()
                         .HasForeignKey("Fk_IdCiudad")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Manantial.Core.Entities.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("Fk_IdDepartamento")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Ciudad");
@@ -398,14 +404,14 @@ namespace Infraestructure.Data.Migrations
                 {
                     b.HasOne("Manantial.Core.Entities.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("Fk_IdCliente")
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Manantial.Core.Entities.Producto", "Producto")
                         .WithMany()
-                        .HasForeignKey("Fk_IdProducto")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cliente");
@@ -417,7 +423,7 @@ namespace Infraestructure.Data.Migrations
                 {
                     b.HasOne("Manantial.Core.Entities.Departamento", "Departamento")
                         .WithMany()
-                        .HasForeignKey("DepartamentoIdDepartamento")
+                        .HasForeignKey("Fk_IdDepartamento")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -466,8 +472,8 @@ namespace Infraestructure.Data.Migrations
                 {
                     b.HasOne("Manantial.Core.Entities.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("Fk_IdCliente")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cliente");
