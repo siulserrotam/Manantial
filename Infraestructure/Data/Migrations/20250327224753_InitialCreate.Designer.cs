@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructure.Data.Migrations
 {
     [DbContext(typeof(ContextoTienda))]
-    [Migration("20250327003822_InitialCreate")]
+    [Migration("20250327224753_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -241,12 +241,10 @@ namespace Infraestructure.Data.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<int>("CategoriaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(180)
+                        .HasColumnType("nvarchar(180)");
 
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("datetime2");
@@ -257,12 +255,10 @@ namespace Infraestructure.Data.Migrations
                     b.Property<int>("Fk_IdMarca")
                         .HasColumnType("int");
 
-                    b.Property<int>("MarcaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("NombreImagen")
                         .IsRequired()
@@ -280,9 +276,9 @@ namespace Infraestructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoriaId");
+                    b.HasIndex("Fk_IdCategoria");
 
-                    b.HasIndex("MarcaId");
+                    b.HasIndex("Fk_IdMarca");
 
                     b.ToTable("Productos");
                 });
@@ -453,13 +449,13 @@ namespace Infraestructure.Data.Migrations
                 {
                     b.HasOne("Manantial.Core.Entities.Categoria", "Categoria")
                         .WithMany()
-                        .HasForeignKey("CategoriaId")
+                        .HasForeignKey("Fk_IdCategoria")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Manantial.Core.Entities.Marca", "Marca")
                         .WithMany()
-                        .HasForeignKey("MarcaId")
+                        .HasForeignKey("Fk_IdMarca")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

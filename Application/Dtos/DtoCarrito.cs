@@ -1,6 +1,6 @@
 namespace Manantial.Application.DTOs
 {
-    public class DtoRetornarCarrito
+    public class DtoCarrito
     {
         public int IdCarrito { get; set; }
         public int Fk_IdCliente { get; set; }

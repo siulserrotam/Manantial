@@ -1,6 +1,6 @@
 namespace Manantial.Application.DTOs
 {
-    public class DtoRetornarDepartamento
+    public class DtoDepartamento
     {
         public string IdDepartamento { get; set; }
         public string Descripcion { get; set; }

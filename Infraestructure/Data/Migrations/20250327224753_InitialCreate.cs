@@ -146,12 +146,10 @@ namespace Infraestructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(180)", maxLength: 180, nullable: false),
                     Fk_IdMarca = table.Column<int>(type: "int", nullable: false),
-                    MarcaId = table.Column<int>(type: "int", nullable: false),
                     Fk_IdCategoria = table.Column<int>(type: "int", nullable: false),
-                    CategoriaId = table.Column<int>(type: "int", nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
                     RutaImagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -163,14 +161,14 @@ namespace Infraestructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_Productos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Productos_Categorias_CategoriaId",
-                        column: x => x.CategoriaId,
+                        name: "FK_Productos_Categorias_Fk_IdCategoria",
+                        column: x => x.Fk_IdCategoria,
                         principalTable: "Categorias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Productos_Marcas_MarcaId",
-                        column: x => x.MarcaId,
+                        name: "FK_Productos_Marcas_Fk_IdMarca",
+                        column: x => x.Fk_IdMarca,
                         principalTable: "Marcas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -295,14 +293,14 @@ namespace Infraestructure.Data.Migrations
                 column: "Fk_IdVenta");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Productos_CategoriaId",
+                name: "IX_Productos_Fk_IdCategoria",
                 table: "Productos",
-                column: "CategoriaId");
+                column: "Fk_IdCategoria");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Productos_MarcaId",
+                name: "IX_Productos_Fk_IdMarca",
                 table: "Productos",
-                column: "MarcaId");
+                column: "Fk_IdMarca");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ventas_ClienteId",

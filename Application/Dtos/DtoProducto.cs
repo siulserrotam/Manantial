@@ -1,6 +1,6 @@
 namespace Manantial.Application.DTOs
 {
-    public class DtoRetornarProducto
+    public class DtoProducto
     {
         public int IdProducto { get; set; }
         public string Nombre { get; set; }
