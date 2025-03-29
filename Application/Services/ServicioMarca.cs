@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Manantial.Core.Entities;
+using Core.Entities;
 
-namespace Manantial.Application.Services
+namespace Application.Services
 {
     public class ServicioMarca
     {

@@ -1,70 +1,61 @@
-using Manantial.Core.Interfaces;
+using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Infraestructure.Data;
+using Core.Interfaces;
 
-namespace Manantial.Infraestructure.Rrepositories
+namespace Infraestructure.Repositories
 {
-    public class RepositorioGenerico<T> : IRepositorioGenerico<T> where T : class
+    public class RepositorioGenerico<T> : IRepositorioGenerico<T> where T : EntidadBase
     {
-        private readonly DbContext _contexto;
-        private readonly DbSet<T> _dbSet;
-
-        public RepositorioGenerico(DbContext contexto)
+        private readonly ContextoTienda _contexto;
+        
+        public RepositorioGenerico(ContextoTienda contexto)
         {
-            _contexto = contexto ?? throw new ArgumentNullException(nameof(contexto));
-            _dbSet = _contexto.Set<T>();
+            _contexto = contexto;
         }
-
-        public async Task<IEnumerable<T>> ObtenerTodosAsync()
-        {
-            return await _dbSet.AsNoTracking().ToListAsync(); // Operación asíncrona
-        }
-
         public async Task<T> ObtenerPorIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id); // Operación asíncrona
+            // Verifica si el ID es válido
+            return await _contexto.Set<T>().FindAsync(id); 
         }
-
-        public async Task<IEnumerable<T>> BuscarAsync(Expression<Func<T, bool>> predicado)
+         public Task ObtenerProductosAsync()
         {
-            return await _dbSet.Where(predicado).AsNoTracking().ToListAsync(); // Operación asíncrona
+            // Implementación de la lógica para obtener productos
+            throw new NotImplementedException();
         }
 
-        public async Task AgregarAsync(T entidad)
+        public async Task<IReadOnlyList<T>> ObtenerTodosAsync()
         {
-            if (entidad == null)
-                throw new ArgumentNullException(nameof(entidad));
-
-            await _dbSet.AddAsync(entidad); // Operación asíncrona
+            // Obtiene todas las entidades de tipo T de forma asincrónica
+            return await _contexto.Set<T>().ToListAsync();
         }
 
-        public async Task ActualizarAsync(T entidad)
+         private IQueryable<T> AplicarEspecificacion(IEspecificacion<T> spec)
         {
-            if (entidad == null)
-                throw new ArgumentNullException(nameof(entidad));
-
-            _dbSet.Attach(entidad);
-            _contexto.Entry(entidad).State = EntityState.Modified; // Modificación del estado
-            await Task.CompletedTask; // No hay una operación asíncrona específica para actualizar, pero puedes hacer la actualización en segundo plano.
+            return EvaluadorDeEspecificaciones<T>.ObtenerConsulta(_contexto.Set<T>().AsQueryable(), spec);
         }
 
-        public async Task EliminarAsync(int id)
+         public async Task<T> ObtenerPorEspecificacionAsync(IEspecificacion<T> spec)
         {
-            var entidad = await _dbSet.FindAsync(id); // Operación asíncrona
-            if (entidad == null)
-                throw new ArgumentNullException(nameof(entidad));
-
-            _dbSet.Remove(entidad); // Eliminar entidad
-            await Task.CompletedTask; // No hay una operación asíncrona específica para eliminar, pero puedes hacer la eliminación en segundo plano.
+            return await AplicarEspecificacion(spec).FirstOrDefaultAsync();
         }
-
-        public async Task GuardarCambiosAsync()
+         public async Task<IReadOnlyList<T>> ListarPorEspecificacionAsync(IEspecificacion<T> spec)
         {
-            await _contexto.SaveChangesAsync(); // Guardar cambios de manera asíncrona
+            return await AplicarEspecificacion(spec).ToListAsync();
         }
+        
+       
     }
 }
+   
+
+     
+     
+      
+
+       

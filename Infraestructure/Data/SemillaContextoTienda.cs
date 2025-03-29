@@ -1,4 +1,4 @@
-using Manantial.Core.Entities;
+using Core.Entities;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Manantial.Infraestructure.Data;
+using Infraestructure.Data;
 
-namespace Manantial.Infraestructure.Data
+namespace Infraestructure.Data
 {
     public class SemillaContextoTienda
     {

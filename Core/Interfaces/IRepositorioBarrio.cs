@@ -1,13 +1,13 @@
-using Manantial.Core.Entities;
-using System.Collections.Generic;
+/*using Core.Entities;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace Manantial.Core.Interfaces
+namespace Core.Interfaces
 {
     public interface IRepositorioBarrio : IRepositorioGenerico<Barrio>
     {
-        Task<IEnumerable<Barrio>> ObtenerPorCiudadAsync(string idCiudad);
         Task<Barrio> ObtenerPorIdAsync(string idBarrio);
-        Task<IEnumerable<Barrio>> ObtenerPorDepartamentoAsync(string idDepartamento);
+        Task<IReadOnlyList<Barrio>> ObtenerPorDepartamentoAsync(string Fk_IdDepartamento);
+        Task<IReadOnlyList<Barrio>> ObtenerPorCiudadAsync(string Fk_IdCiudad);
     }
-}
+}*/

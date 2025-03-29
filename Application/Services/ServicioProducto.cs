@@ -1,7 +1,7 @@
-using Manantial.Core.Entities;
-using Manantial.Core.Interfaces;
+using Core.Entities;
+using Core.Interfaces;
 
-namespace Manantial.Application.Services
+namespace Application.Services
 {
     public class ServicioProducto
     {
@@ -37,10 +37,10 @@ namespace Manantial.Application.Services
 
             return producto; //await _productoRepository.ActualizarAsync(producto);
         }
-
+        /*
         public async Task EliminarProductoAsync(int id)
         {
             await _productoRepository.EliminarAsync(id);
-        }
+        }*/
     }
 }

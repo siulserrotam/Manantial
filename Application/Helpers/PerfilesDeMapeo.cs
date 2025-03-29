@@ -1,8 +1,8 @@
 using AutoMapper;
-using Manantial.Application.DTOs;
-using Manantial.Core.Entities;
+using Application.DTOs;
+using Core.Entities;
 
-namespace Manantial.Application.Helpers
+namespace Application.Helpers
 {
     public class PerfilesDeMapeo : Profile
     {

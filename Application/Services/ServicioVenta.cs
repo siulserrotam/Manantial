@@ -1,5 +1,5 @@
-using Manantial.Core.Entities;
-using Manantial.Core.Interfaces;
+using Core.Entities;
+using Core.Interfaces;
 using System.Threading.Tasks;
 
 namespace Manantial.Core.Services
@@ -38,7 +38,7 @@ namespace Manantial.Core.Services
             venta.MontoTotal = CalcularMontoTotal(venta);
 
             // Guardar la venta en el repositorio
-            await _repositorioVenta.AgregarAsync(venta);
+            //await _repositorioVenta.AgregarAsync(venta);
 
             // Devolver la venta generada
             return venta;

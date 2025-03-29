@@ -1,6 +1,6 @@
-using Manantial.Core.Entities;
+using Core.Entities;
 
-namespace Manantial.Core.Interfaces
+namespace Core.Interfaces
 {
     // Core/Interfaces/IRepositorioMarca.cs
     public interface IRepositorioMarca : IRepositorioGenerico<Marca>

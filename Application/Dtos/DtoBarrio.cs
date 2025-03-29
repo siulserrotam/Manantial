@@ -1,4 +1,4 @@
-namespace Manantial.Application.DTOs
+namespace Application.DTOs
 {
     public class DtoBarrio
     {

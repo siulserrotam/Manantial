@@ -1,5 +1,5 @@
-using Manantial.Core.Entities;
-using Manantial.Core.Interfaces;
+/*using Core.Entities;
+using Core.Interfaces;
 
 namespace Manantial.Application.Services
 {
@@ -48,3 +48,4 @@ namespace Manantial.Application.Services
         }
     }
 }
+*/

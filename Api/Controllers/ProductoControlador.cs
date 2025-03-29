@@ -1,32 +1,32 @@
 using API.Controllers;
 using API.Errors;
+using Application.DTOs;
 using AutoMapper;
-using Manantial.Application.DTOs;
-using Manantial.Core.Entities;
-using Manantial.Core.Interfaces;
-using Manantial.Core.Specifications;
-using Microsoft.AspNetCore.Mvc;  // Importa clases necesarias para crear controladores de la API en ASP.NET
+using Core.Entities;
+using Core.Interfaces;
+using Core.Specifications;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller
 {
 
-    public class ProductoControlador : ControladorBaseApi
+    public class ProductsController : ControladorBaseApi
     {
-        private readonly IRepositorioProducto _RepoProducto;
-        private readonly IRepositorioGenerico<Categoria> _RepoCategoria;
-        private readonly IRepositorioGenerico<Marca> _RepoMarca;
+        private readonly IRepositorioProducto _productoRepo;
+        private readonly IRepositorioGenerico<Categoria> _productoCategoriaRepo;
+        private readonly IRepositorioGenerico<Marca> _productoMarcaRepo;
         private readonly IMapper _mapper;
 
         // Constructor con la inyección de dependencias
-        public ProductoControlador(
-            IRepositorioProducto RepoProducto, 
-            IRepositorioGenerico<Categoria> RepoCategoria, 
-            IRepositorioGenerico<Marca> RepoMarca,
+        public ProductsController(
+            IRepositorioProducto productoRepo, 
+            IRepositorioGenerico<Categoria> productoCategoriaRepo, 
+            IRepositorioGenerico<Marca> productoMarcaRepo,
             IMapper mapper)
         {
-            _RepoProducto = RepoProducto;  // Asignamos las dependencias a las variables de instancia
-            _RepoCategoria = RepoCategoria;
-            _RepoMarca = RepoMarca;
+            _productoRepo = productoRepo;  // Asignamos las dependencias a las variables de instancia
+            _productoCategoriaRepo = productoCategoriaRepo;
+            _productoMarcaRepo = productoMarcaRepo;
             _mapper = mapper;
         }
 
@@ -36,7 +36,7 @@ namespace API.Controller
         {
             var spec = new EspecificacionProductosConCategoriaYMarca();  // Definimos la especificación para obtener los productos
 
-            var productos = await _RepoProducto.ListarPorEspecificacionAsync(spec);  // Usamos el repositorio para obtener los productos con la especificación
+            var productos = await _productoRepo.ListarPorEspecificacionAsync(spec);  // Usamos el repositorio para obtener los productos con la especificación
 
             // Si no hay productos, se retorna un 404 NotFound
             if (productos == null || !productos.Any())
@@ -52,16 +52,16 @@ namespace API.Controller
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(DtoProducto), 200)]
         [ProducesResponseType(typeof(RespuestaApi), 404)]
-        public async Task<ActionResult<DtoProducto>> ObtenerPoducto(int id)
+        public async Task<ActionResult<DtoProducto>> GetProduct(int id)
         {
             var spec = new EspecificacionProductosConCategoriaYMarca(id);  // Creamos una especificación que use el id del producto
 
-            var producto = await _RepoProducto.(spec);  // Obtenemos el producto con esa especificación
+            var producto = await _productoRepo.ObtenerProductoConEspecificacionAsync(spec);  // Obtenemos el producto con esa especificación
 
             // Si no se encuentra el producto, retornamos un 404 NotFound
             if (producto == null)
             {
-                return NotFound($"Producto con Id {id} no funciona.");
+                return NotFound($"Product with ID {id} not found.");
             }
 
             // Si no hay productos, se retorna un 404 NotFound
@@ -75,32 +75,32 @@ namespace API.Controller
 
         // Método para obtener todas las marcas de productos
         [HttpGet("Categorias")]
-        public async Task<ActionResult<IReadOnlyList<Categoria>>> ObtenerProductosPorCategoria()
+        public async Task<ActionResult<IReadOnlyList<Categoria>>> ObtenerCategorias()
         {
-            var RepoCategoria = await _RepoCategoria.ListarPorEspecificacionAsync();  // Obtenemos todas las marcas de productos
+            var productoCategoria = await _productoCategoriaRepo.ObtenerTodosAsync();  // Obtenemos todas las categorias de productos
 
             // Si no hay marcas, retornar un 404 NotFound
-            if (RepoCategoria == null || !RepoCategoria.Any())
+            if (productoCategoria == null || !productoCategoria.Any())
             {
                 return NotFound("No product brands found.");
             }
 
-            return Ok(RepoCategoria);
+            return Ok(productoCategoria);
         }
 
         // Método para obtener todos los tipos de productos
         [HttpGet("Marcas")]
-        public async Task<ActionResult<IReadOnlyList<Marca>>> GetProductTypes()
+        public async Task<ActionResult<IReadOnlyList<Marca>>> ObtenerMarcas()
         {
-            var RepoMarca = await _RepoMarca.ListAllAsync();  // Obtenemos todos los tipos de productos
+            var productoMarca = await _productoMarcaRepo.ObtenerTodosAsync();  // Obtenemos todos los marcas de productos
 
             // Si no hay tipos, retornar un 404 NotFound
-            if (RepoMarca == null || !RepoMarca.Any())
+            if (productoMarca == null || !productoMarca.Any())
             {
                 return NotFound("No product types found.");
             }
 
-            return Ok(RepoMarca);
+            return Ok(productoMarca);
         }
     }
 }

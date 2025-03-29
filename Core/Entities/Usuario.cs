@@ -11,7 +11,7 @@ FechaRegistro datetime default getdate()
 )
 go*/
 
-namespace Manantial.Core.Entities
+namespace Core.Entities
 {
     public class Usuario : EntidadBase
     {

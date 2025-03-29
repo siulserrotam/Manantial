@@ -1,4 +1,5 @@
-namespace Manantial.Core.Entities 
+
+namespace Core.Entities 
 {
     public class Producto : EntidadBase
     {
@@ -12,5 +13,10 @@ namespace Manantial.Core.Entities
         public int Stock { get; set; }
         public string RutaImagen { get; set; }
         public string NombreImagen { get; set; }
+
+        public bool Any()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

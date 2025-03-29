@@ -1,5 +1,5 @@
 using API.Errors;
-using Manantial.Infraestructure.Data;
+using Infraestructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

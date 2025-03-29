@@ -1,9 +1,9 @@
-using Manantial.Core.Entities;
-using Manantial.Core.Interfaces;
+/*using Core.Entities;
+using Core.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Manantial.Application.Services
+namespace Application.Services
 {
     public class ServicioDepartamento
     {
@@ -51,3 +51,4 @@ namespace Manantial.Application.Services
         }
     }
 }
+*/

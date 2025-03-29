@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Manantial.Core.Entities;
+using Core.Entities;
 
-namespace Manantial.Infraestructure.Data.Config
+namespace Infraestructure.Data.Config
 {
     public class ConfiguracionProducto : IEntityTypeConfiguration<Producto>
     {

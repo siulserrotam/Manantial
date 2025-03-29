@@ -1,11 +1,11 @@
-using Manantial.Core.Entities;  // Importamos la clase EntidadBase desde el espacio de nombres Core.Entities.
+using Core.Entities;  // Importamos la clase EntidadBase desde el espacio de nombres Core.Entities.
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using Manantial.Core.Interfaces;
+using Core.Interfaces;
 
-namespace Manantial.Infraestructure.Data  // Espacio de nombres adecuado para la infraestructura de tu proyecto.
+namespace Infraestructure.Data  // Espacio de nombres adecuado para la infraestructura de tu proyecto.
 {
     // Clase genérica que evalúa y aplica las especificaciones a las consultas.
     public class EvaluadorDeEspecificaciones<TEntity> where TEntity : EntidadBase  // Usamos EntidadBase como la clase base.
@@ -23,10 +23,10 @@ namespace Manantial.Infraestructure.Data  // Espacio de nombres adecuado para la
             }
 
             // Verificamos si hay Includes para aplicar
-            if (especificacion.Includes != null && ((IEnumerable<Expression<Func<TEntity, object>>>)especificacion.Includes).Any())
+            if (especificacion.Incluir != null && ((IEnumerable<Expression<Func<TEntity, object>>>)especificacion.Incluir).Any())
             {
                 // Aplicamos los "Includes" de la especificación, lo que permite incluir relaciones.
-                consulta = ((IEnumerable<Expression<Func<TEntity, object>>>)especificacion.Includes)
+                consulta = ((IEnumerable<Expression<Func<TEntity, object>>>)especificacion.Incluir)
                     .Aggregate(consulta, 
                         (consultaActual, incluir) => consultaActual.Include(incluir)) ?? consulta;
             }

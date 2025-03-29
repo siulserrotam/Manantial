@@ -1,9 +1,11 @@
-using Manantial.Core.Entities;
+using Core.Entities;
 
-namespace Manantial.Core.Interfaces
+namespace Core.Interfaces
 {
     public interface IRepositorioUsuario : IRepositorioGenerico<Usuario>
     {
+        Task AgregarAsync(Usuario usuario);
+
         // Método para obtener un usuario por su correo
         Task<Usuario> ObtenerPorCorreoAsync(string correo);
 

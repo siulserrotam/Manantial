@@ -1,10 +1,10 @@
-using Manantial.Application.Interfaces;
-using Manantial.Core.Entities;
-using Manantial.Core.Interfaces;
+using Application.Interfaces;
+using Core.Entities;
+using Core.Interfaces;
 using System;
 using System.Threading.Tasks;
 
-namespace Manantial.Application.Services
+namespace Application.Services
 {
     public class ServicioUsuario
     {

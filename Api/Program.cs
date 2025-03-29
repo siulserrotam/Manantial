@@ -1,4 +1,4 @@
-using Manantial.Infraestructure.Data;
+using Infraestructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Diagnostics;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using API.Errors;
-using Manantial.Application.Helpers;
+using Application.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);

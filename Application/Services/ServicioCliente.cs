@@ -1,7 +1,7 @@
-using Manantial.Core.Entities;
-using Manantial.Core.Interfaces;
+using Core.Entities;
+using Core.Interfaces;
 
-namespace Manantial.Application.Services
+namespace Application.Services
 {
     public class ServicioCliente
     {
@@ -37,10 +37,10 @@ namespace Manantial.Application.Services
 
             return cliente; //await _clienteRepository.ActualizarAsync(cliente);
         }
-
+        /*
         public async Task EliminarClienteAsync(int id)
         {
             await _clienteRepository.EliminarAsync(id);
-        }
+        }*/
     }
 }

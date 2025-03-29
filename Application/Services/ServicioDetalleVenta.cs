@@ -1,8 +1,8 @@
-using Manantial.Core.Entities;
-using Manantial.Core.Interfaces;
+/*using Core.Entities;
+using Core.Interfaces;
 using System.Threading.Tasks;
 
-namespace Manantial.Application.Services
+namespace Application.Services
 {
     public class ServicioDetalleVenta
     {
@@ -40,3 +40,4 @@ namespace Manantial.Application.Services
         }
     }
 }
+*/

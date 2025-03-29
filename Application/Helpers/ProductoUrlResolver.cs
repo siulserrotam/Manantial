@@ -1,9 +1,9 @@
 using AutoMapper;
-using Manantial.Application.DTOs;
-using Manantial.Core.Entities;
+using Application.DTOs;
+using Core.Entities;
 using Microsoft.Extensions.Configuration;
 
-namespace Manantial.Application.Helpers
+namespace Application.Helpers
 {
     public class ProductoUrlResolver : IValueResolver<Producto, DtoProducto, string>
     {

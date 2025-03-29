@@ -1,5 +1,5 @@
 
-namespace Manantial.Core.Entities
+namespace Core.Entities
 {
     public class Venta : EntidadBase
     {

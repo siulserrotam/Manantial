@@ -1,8 +1,8 @@
 using System.Reflection;
-using Manantial.Core.Entities;  // Hace referencia a las entidades del modelo de la base de datos.
+using Core.Entities;  // Hace referencia a las entidades del modelo de la base de datos.
 using Microsoft.EntityFrameworkCore;  // Contiene las clases y métodos para trabajar con Entity Framework Core.
 
-namespace Manantial.Infraestructure.Data  // Espacio de nombres donde se maneja el contexto de la base de datos.
+namespace Infraestructure.Data  // Espacio de nombres donde se maneja el contexto de la base de datos.
 {
     public class ContextoTienda : DbContext
     {

@@ -1,10 +1,10 @@
-using Manantial.Core.Entities;
+using Core.Entities;
 
-namespace Manantial.Core.Interfaces
-{
+namespace Core.Interfaces
+{/*
     public interface IRepositorioCarrito : IRepositorioGenerico<Carrito>
     {
         // Métodos específicos para 'Carrito'.
         Task<IEnumerable<Carrito>> ObtenerCarritoPorIdClienteAsync(int clienteId);
-    }
+    }*/
 }

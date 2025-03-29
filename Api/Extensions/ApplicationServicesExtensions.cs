@@ -1,9 +1,8 @@
 using API.Errors;
-using Manantial.Core.Interfaces;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Manantial.Infraestructure.Repositories;
-using Manantial.Infraestructure.Rrepositories;
+using Infraestructure.Repositories;
 
 namespace API.Extensions
 {
