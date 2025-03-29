@@ -36,17 +36,26 @@ namespace Infraestructure.Repositories
             return await AplicarEspecificacion(spec).FirstOrDefaultAsync();
         }
 
-        public async Task<IReadOnlyList<Categoria>> ObtenerProductosPorCategoriaAsync()
+        //  Corrección: Devuelve productos filtrados por categoría
+        public async Task<IReadOnlyList<Producto>> ObtenerProductosPorCategoriaAsync(int Fk_IdCategoria)
         {
-            return await _contexto.Set<Categoria>().ToListAsync();
+            return await _contexto.Set<Producto>()
+                .Where(p => p.Fk_IdCategoria == Fk_IdCategoria)
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
 
-        public async Task<IReadOnlyList<Marca>> ObtenerProductosPorMarcaAsync()
+        //  Corrección: Devuelve productos filtrados por marca
+        public async Task<IReadOnlyList<Producto>> ObtenerProductosPorMarcaAsync(int Fk_IdMarca)
         {
-            return await _contexto.Set<Marca>().ToListAsync();
+            return await _contexto.Set<Producto>()
+                .Where(p => p.Fk_IdMarca == Fk_IdMarca)
+                .Include(p => p.Marca)
+                .ToListAsync();
         }
 
-        public async Task<IReadOnlyList<Producto>> ListarProductosAsync(EspecificacionProductosConCategoriaYMarca spec)
+        //  Corrección: Usa IEspecificacion<Producto> en lugar de una clase específica
+        public async Task<IReadOnlyList<Producto>> ListarProductosAsync(IEspecificacion<Producto> spec)
         {
             return await AplicarEspecificacion(spec).ToListAsync();
         }

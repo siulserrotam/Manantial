@@ -12,12 +12,7 @@ namespace Core.Specifications
             AgregarIncluir(p => p.Categoria);
             AgregarIncluir(p => p.Marca);
         }
-
-        private void AddInclude(Func<object, object> value)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public EspecificacionProductosConCategoriaYMarca(int id)
              : base(x => x.Id == id) // Filtro por Id
         {

@@ -8,21 +8,27 @@ using Microsoft.Extensions.DependencyInjection;
 using API.Errors;
 using Application.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Core.Interfaces;
+using Infraestructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración del DbContext para conectar a SQL Server
+// 🛠️ 1. Configuración del DbContext para conectar a SQL Server
 builder.Services.AddDbContext<ContextoTienda>(opciones =>
     opciones.UseSqlServer(builder.Configuration.GetConnectionString("CadenaConexion")));
 
-// Agregar servicios adicionales
+// 🛠️ 2. Inyección de dependencias para repositorios
+builder.Services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
+builder.Services.AddScoped<IRepositorioProducto, RepositorioProducto>();
+
+// 🛠️ 3. Inyección de servicios adicionales
 builder.Services.AddScoped<SemillaContextoTienda>();
 builder.Services.AddScoped<ProductoUrlResolver>();
 
-// Configuración de AutoMapper
+// 🛠️ 4. Configuración de AutoMapper
 builder.Services.AddAutoMapper(typeof(PerfilesDeMapeo));
 
-// Configuración de controladores con compatibilidad para respuestas de error personalizadas
+// 🛠️ 5. Configuración de validaciones y respuestas de error
 builder.Services.Configure<ApiBehaviorOptions>(opciones =>
 {
     opciones.InvalidModelStateResponseFactory = actionContext =>
@@ -37,21 +43,20 @@ builder.Services.Configure<ApiBehaviorOptions>(opciones =>
         return new BadRequestObjectResult(respuesta);
     };
 });
+
+// 🛠️ 6. Configuración de controladores
 builder.Services.AddControllers();
 
-// Configuración de Swagger
+// 🛠️ 7. Configuración de Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Manantial API", Version = "v1" });
 });
 
-// Habilitar exploración de endpoints
-builder.Services.AddEndpointsApiExplorer();
-
-// Construcción de la aplicación
+// 🛠️ 8. Construcción de la aplicación
 var app = builder.Build();
 
-// Middleware para manejar errores globales
+// 🛠️ 9. Middleware global para manejo de excepciones
 app.UseExceptionHandler(appError =>
 {
     appError.Run(async context =>
@@ -68,6 +73,7 @@ app.UseExceptionHandler(appError =>
     });
 });
 
+// 🛠️ 10. Configuración de Swagger solo en entorno de desarrollo
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -78,16 +84,19 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// 🛠️ 11. Configuración de middleware y enrutamiento
+app.UseStatusCodePages(); // Devuelve más detalles de errores HTTP
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseAuthorization();
+app.UseAuthorization(); // ❌ Si no usas autenticación, puedes quitar esto
 app.MapControllers();
 
-// Aplicar migraciones de la base de datos
+// 🛠️ 12. Aplicar migraciones de la base de datos
 await AplicarMigracionesAsync(app);
 
 app.Run();
 
+// 🛠️ 13. Método para aplicar migraciones automáticamente
 static async Task AplicarMigracionesAsync(WebApplication app)
 {
     using (var alcance = app.Services.CreateScope())

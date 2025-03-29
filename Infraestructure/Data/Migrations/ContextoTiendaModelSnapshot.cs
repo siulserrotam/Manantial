@@ -22,7 +22,7 @@ namespace Infraestructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Manantial.Core.Entities.Barrio", b =>
+            modelBuilder.Entity("Core.Entities.Barrio", b =>
                 {
                     b.Property<string>("IdBarrio")
                         .HasColumnType("nvarchar(450)");
@@ -48,7 +48,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Barrios");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Carrito", b =>
+            modelBuilder.Entity("Core.Entities.Carrito", b =>
                 {
                     b.Property<int>("IdCarrito")
                         .ValueGeneratedOnAdd()
@@ -80,7 +80,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Carritos");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Categoria", b =>
+            modelBuilder.Entity("Core.Entities.Categoria", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +103,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Categorias");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Ciudad", b =>
+            modelBuilder.Entity("Core.Entities.Ciudad", b =>
                 {
                     b.Property<string>("IdCiudad")
                         .HasColumnType("nvarchar(450)");
@@ -123,7 +123,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Ciudades");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Cliente", b =>
+            modelBuilder.Entity("Core.Entities.Cliente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,7 +161,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Departamento", b =>
+            modelBuilder.Entity("Core.Entities.Departamento", b =>
                 {
                     b.Property<string>("IdDepartamento")
                         .HasColumnType("nvarchar(450)");
@@ -175,7 +175,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Departamentos");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.DetalleVenta", b =>
+            modelBuilder.Entity("Core.Entities.DetalleVenta", b =>
                 {
                     b.Property<int>("IdDetalleVenta")
                         .ValueGeneratedOnAdd()
@@ -204,7 +204,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("DetallesVenta");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Marca", b =>
+            modelBuilder.Entity("Core.Entities.Marca", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -227,7 +227,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Marcas");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Producto", b =>
+            modelBuilder.Entity("Core.Entities.Producto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -280,7 +280,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Productos");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Usuario", b =>
+            modelBuilder.Entity("Core.Entities.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -318,7 +318,7 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Venta", b =>
+            modelBuilder.Entity("Core.Entities.Venta", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -374,15 +374,15 @@ namespace Infraestructure.Data.Migrations
                     b.ToTable("Ventas");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Barrio", b =>
+            modelBuilder.Entity("Core.Entities.Barrio", b =>
                 {
-                    b.HasOne("Manantial.Core.Entities.Ciudad", "Ciudad")
+                    b.HasOne("Core.Entities.Ciudad", "Ciudad")
                         .WithMany()
                         .HasForeignKey("Fk_IdCiudad")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Manantial.Core.Entities.Departamento", "Departamento")
+                    b.HasOne("Core.Entities.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("Fk_IdDepartamento")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -393,15 +393,15 @@ namespace Infraestructure.Data.Migrations
                     b.Navigation("Departamento");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Carrito", b =>
+            modelBuilder.Entity("Core.Entities.Carrito", b =>
                 {
-                    b.HasOne("Manantial.Core.Entities.Cliente", "Cliente")
+                    b.HasOne("Core.Entities.Cliente", "Cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Manantial.Core.Entities.Producto", "Producto")
+                    b.HasOne("Core.Entities.Producto", "Producto")
                         .WithMany()
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -412,9 +412,9 @@ namespace Infraestructure.Data.Migrations
                     b.Navigation("Producto");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Ciudad", b =>
+            modelBuilder.Entity("Core.Entities.Ciudad", b =>
                 {
-                    b.HasOne("Manantial.Core.Entities.Departamento", "Departamento")
+                    b.HasOne("Core.Entities.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("Fk_IdDepartamento")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -423,15 +423,15 @@ namespace Infraestructure.Data.Migrations
                     b.Navigation("Departamento");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.DetalleVenta", b =>
+            modelBuilder.Entity("Core.Entities.DetalleVenta", b =>
                 {
-                    b.HasOne("Manantial.Core.Entities.Producto", "Producto")
+                    b.HasOne("Core.Entities.Producto", "Producto")
                         .WithMany()
                         .HasForeignKey("Fk_IdProducto")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Manantial.Core.Entities.Venta", "Venta")
+                    b.HasOne("Core.Entities.Venta", "Venta")
                         .WithMany()
                         .HasForeignKey("Fk_IdVenta")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -442,15 +442,15 @@ namespace Infraestructure.Data.Migrations
                     b.Navigation("Venta");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Producto", b =>
+            modelBuilder.Entity("Core.Entities.Producto", b =>
                 {
-                    b.HasOne("Manantial.Core.Entities.Categoria", "Categoria")
+                    b.HasOne("Core.Entities.Categoria", "Categoria")
                         .WithMany()
                         .HasForeignKey("Fk_IdCategoria")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Manantial.Core.Entities.Marca", "Marca")
+                    b.HasOne("Core.Entities.Marca", "Marca")
                         .WithMany()
                         .HasForeignKey("Fk_IdMarca")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -461,9 +461,9 @@ namespace Infraestructure.Data.Migrations
                     b.Navigation("Marca");
                 });
 
-            modelBuilder.Entity("Manantial.Core.Entities.Venta", b =>
+            modelBuilder.Entity("Core.Entities.Venta", b =>
                 {
-                    b.HasOne("Manantial.Core.Entities.Cliente", "Cliente")
+                    b.HasOne("Core.Entities.Cliente", "Cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
