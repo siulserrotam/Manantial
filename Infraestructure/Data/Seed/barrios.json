@@ -1,0 +1,74 @@
+[
+  {
+    "IdBarrio": "010101",
+    "Descripcion": "La Candelaria",
+    "Fk_IdDepartamento": "01",
+    "Fk_IdCiudad": "0101"
+  },
+  {
+    "IdBarrio": "010102",
+    "Descripcion": "Usaquén",
+    "Fk_IdDepartamento": "01",
+    "Fk_IdCiudad": "0101"
+  },
+  {
+    "IdBarrio": "020101",
+    "Descripcion": "Barrio San Francisco",
+    "Fk_IdDepartamento": "02",
+    "Fk_IdCiudad": "0201"
+  },
+  {
+    "IdBarrio": "020102",
+    "Descripcion": "Barrio Santa Cruz",
+    "Fk_IdDepartamento": "02",
+    "Fk_IdCiudad": "0201"
+  },
+  {
+    "IdBarrio": "030101",
+    "Descripcion": "El Poblado",
+    "Fk_IdDepartamento": "03",
+    "Fk_IdCiudad": "0301"
+  },
+  {
+    "IdBarrio": "030102",
+    "Descripcion": "Envigado",
+    "Fk_IdDepartamento": "03",
+    "Fk_IdCiudad": "0301"
+  },
+  {
+    "IdBarrio": "030201",
+    "Descripcion": "Niquía",
+    "Fk_IdDepartamento": "03",
+    "Fk_IdCiudad": "0302"
+  },
+  {
+    "IdBarrio": "030202",
+    "Descripcion": "Bello Oriente",
+    "Fk_IdDepartamento": "03",
+    "Fk_IdCiudad": "0302"
+  },
+  {
+    "IdBarrio": "040101",
+    "Descripcion": "Barrio El Prado",
+    "Fk_IdDepartamento": "04",
+    "Fk_IdCiudad": "0401"
+  },
+  {
+    "IdBarrio": "040102",
+    "Descripcion": "Barrio La Cumbre",
+    "Fk_IdDepartamento": "04",
+    "Fk_IdCiudad": "0401"
+  },
+  {
+    "IdBarrio": "040103",
+    "Descripcion": "Barrio Villa del Río",
+    "Fk_IdDepartamento": "04",
+    "Fk_IdCiudad": "0402"
+  },
+  {
+    "IdBarrio": "040104",
+    "Descripcion": "Barrio Malibú",
+    "Fk_IdDepartamento": "04",
+    "Fk_IdCiudad": "0402"
+  }
+]
