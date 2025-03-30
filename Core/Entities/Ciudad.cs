@@ -1,3 +1,11 @@
+/*
+create table CIUDAD(
+IdCiudad varchar(4) NOT NULL,
+Descripcion varchar (45) NOT NULL,
+Fk_IdDepartamento varchar (2) NOT NULL
+)
+
+*/
 namespace Core.Entities
 {
     public class Ciudad

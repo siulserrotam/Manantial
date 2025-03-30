@@ -238,7 +238,7 @@ namespace Infraestructure.Data.Migrations
                     Fk_IdVenta = table.Column<int>(type: "int", nullable: false),
                     Fk_IdProducto = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Total = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
                 },
                 constraints: table =>
                 {

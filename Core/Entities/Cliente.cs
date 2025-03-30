@@ -1,3 +1,14 @@
+/*
+create table CLIENTE(
+IdCliente int primary key identity,
+Nombres varchar(100),
+Apellidos varchar(100),
+Correo varchar(100),
+Clave varchar(150),
+Restablecer bit default 0,
+FechaRegistro datetime default getdate()
+*/
+
 namespace Core.Entities
 {
     public class Cliente : EntidadBase

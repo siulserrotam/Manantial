@@ -1,4 +1,18 @@
-
+/*
+create table PRODUCTO(
+IdProducto int primary key identity,
+Nombre varchar(500),
+Descripcion varchar(500),
+Fk_IdMarca int references MARCA(IdMarca),
+Fk_IdCategoria int references CATEGORIA(IdCategoria),
+Precio decimal(10,2) default 0,
+stock int,
+RutaImagen varchar(100),
+NombreImagen varchar(100),
+Activo bit default 1,
+FechaRegistro datetime default getdate()
+)
+*/
 namespace Core.Entities 
 {
     public class Producto : EntidadBase

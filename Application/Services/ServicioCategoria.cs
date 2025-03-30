@@ -1,4 +1,4 @@
-/*using Core.Entities;
+using Core.Entities;
 using Core.Interfaces;
 
 namespace Manantial.Application.Services
@@ -21,7 +21,7 @@ namespace Manantial.Application.Services
         {
             return await _repositorioCategoria.ObtenerPorIdAsync(id);
         }
-
+        /*
         public async Task AgregarCategoriaAsync(Categoria categoria)
         {
             if (categoria == null)
@@ -36,7 +36,7 @@ namespace Manantial.Application.Services
                 throw new ArgumentNullException(nameof(categoria));
 
             await _repositorioCategoria.ActualizarAsync(categoria);
-        }
+        }*/
 
         public async Task EliminarCategoriaAsync(int id)
         {
@@ -48,4 +48,3 @@ namespace Manantial.Application.Services
         }
     }
 }
-*/
