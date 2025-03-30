@@ -1,5 +1,3 @@
-using API.Errors;
-
 namespace API.Errors
 {
     public class ExcepcionApi : RespuestaApi

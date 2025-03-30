@@ -39,7 +39,7 @@ namespace API.Controllers
 
             if (productos == null || !productos.Any())
             {
-                return NotFound("No products found.");
+                return NotFound("No contiene productos.");
             }
 
             return Ok(_mapper.Map<IReadOnlyList<Producto>, IReadOnlyList<DtoProducto>>(productos));
@@ -69,7 +69,7 @@ namespace API.Controllers
 
             if (categorias == null || !categorias.Any())
             {
-                return NotFound("No categories found.");
+                return NotFound("No contiene categorias.");
             }
 
             return Ok(categorias);
@@ -82,7 +82,7 @@ namespace API.Controllers
 
             if (marcas == null || !marcas.Any())
             {
-                return NotFound("No brands found.");
+                return NotFound("No contiene marcas.");
             }
 
             return Ok(marcas);

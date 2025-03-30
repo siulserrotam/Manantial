@@ -13,22 +13,22 @@ using Infraestructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🛠️ 1. Configuración del DbContext para conectar a SQL Server
+// Configuración del DbContext para conectar a SQL Server
 builder.Services.AddDbContext<ContextoTienda>(opciones =>
     opciones.UseSqlServer(builder.Configuration.GetConnectionString("CadenaConexion")));
 
-// 🛠️ 2. Inyección de dependencias para repositorios
+// Inyección de dependencias para repositorios
 builder.Services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
 builder.Services.AddScoped<IRepositorioProducto, RepositorioProducto>();
 
-// 🛠️ 3. Inyección de servicios adicionales
+// Inyección de servicios adicionales
 builder.Services.AddScoped<SemillaContextoTienda>();
 builder.Services.AddScoped<ProductoUrlResolver>();
 
-// 🛠️ 4. Configuración de AutoMapper
+// Configuración de AutoMapper
 builder.Services.AddAutoMapper(typeof(PerfilesDeMapeo));
 
-// 🛠️ 5. Configuración de validaciones y respuestas de error
+// Configuración de validaciones y respuestas de error
 builder.Services.Configure<ApiBehaviorOptions>(opciones =>
 {
     opciones.InvalidModelStateResponseFactory = actionContext =>
@@ -44,19 +44,19 @@ builder.Services.Configure<ApiBehaviorOptions>(opciones =>
     };
 });
 
-// 🛠️ 6. Configuración de controladores
+//Configuración de controladores
 builder.Services.AddControllers();
 
-// 🛠️ 7. Configuración de Swagger
+//  Configuración de Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Manantial API", Version = "v1" });
 });
 
-// 🛠️ 8. Construcción de la aplicación
+//  Construcción de la aplicación
 var app = builder.Build();
 
-// 🛠️ 9. Middleware global para manejo de excepciones
+// Middleware global para manejo de excepciones
 app.UseExceptionHandler(appError =>
 {
     appError.Run(async context =>
@@ -73,7 +73,7 @@ app.UseExceptionHandler(appError =>
     });
 });
 
-// 🛠️ 10. Configuración de Swagger solo en entorno de desarrollo
+// Configuración de Swagger solo en entorno de desarrollo
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -84,19 +84,19 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// 🛠️ 11. Configuración de middleware y enrutamiento
+//  Configuración de middleware y enrutamiento
 app.UseStatusCodePages(); // Devuelve más detalles de errores HTTP
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseAuthorization(); // ❌ Si no usas autenticación, puedes quitar esto
+app.UseAuthorization(); // Si no usas autenticación, puedes quitar esto
 app.MapControllers();
 
-// 🛠️ 12. Aplicar migraciones de la base de datos
+//Aplicar migraciones de la base de datos
 await AplicarMigracionesAsync(app);
 
 app.Run();
 
-// 🛠️ 13. Método para aplicar migraciones automáticamente
+//  Método para aplicar migraciones automáticamente
 static async Task AplicarMigracionesAsync(WebApplication app)
 {
     using (var alcance = app.Services.CreateScope())

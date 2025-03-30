@@ -193,7 +193,7 @@ namespace Infraestructure.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.HasKey("IdDetalleVenta");
 

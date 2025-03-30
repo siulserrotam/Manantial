@@ -1,3 +1,12 @@
+/*
+create table BARRIO(
+IdBarrio varchar(6) NOT NULL,
+Descripcion varchar (45) NOT NULL,
+Fk_IdDepartamento varchar (2) NOT NULL,
+Fk_IdCiudad varchar (4) NOT NULL
+)
+
+*/
 namespace Core.Entities
 {
     public class Barrio

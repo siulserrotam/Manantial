@@ -73,6 +73,15 @@ namespace Infraestructure.Data  // Espacio de nombres donde se maneja el context
                 .HasForeignKey(c => c.Fk_IdDepartamento)  // Clave foránea
                 .OnDelete(DeleteBehavior.Cascade);  // Elimina las Ciudades al eliminar el Departamento
 
+            // Definir precisión del campo Total en DetalleVenta
+            modelBuilder.Entity<DetalleVenta>()
+                .Property(d => d.Total)
+                .HasColumnType("decimal(10,2)");
+
+            // Definir precisión del campo MontoTotal en Venta
+            modelBuilder.Entity<Venta>()
+                .Property(v => v.MontoTotal)
+                .HasColumnType("decimal(18,2)"); // O ajusta según tus necesidades
 
             // Aplica las configuraciones de las entidades desde el ensamblado actual.
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

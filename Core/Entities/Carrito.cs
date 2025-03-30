@@ -1,3 +1,12 @@
+/*
+create table CARRITO(
+IdCarrito int primary key identity,
+Fk_IdCliente int references CLIENTE(IdCliente),
+Fk_IdCategoria int references PRODUCTO(IdProducto),
+Cantidad int
+)
+*/
+
 namespace Core.Entities
 {
         public class Carrito
