@@ -1,17 +1,22 @@
 using System.Reflection;
-using Core.Entities;  // Hace referencia a las entidades del modelo de la base de datos.
-using Microsoft.EntityFrameworkCore;  // Contiene las clases y métodos para trabajar con Entity Framework Core.
+using Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infraestructure.Data  // Espacio de nombres donde se maneja el contexto de la base de datos.
+namespace Infraestructure.Data
 {
     public class ContextoTienda : DbContext
     {
-        // Constructor que recibe un objeto DbContextOptions con la configuración de la base de datos.
+        // Constructor con parámetros (usado normalmente en producción)
         public ContextoTienda(DbContextOptions<ContextoTienda> options) : base(options)
         {
         }
 
-        // Propiedades DbSet que representan las tablas en la base de datos.
+        // Constructor sin parámetros (útil para herramientas de scaffolding o pruebas)
+        public ContextoTienda()
+        {
+        }
+
+        // DbSet: tablas de la base de datos
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Producto> Productos { get; set; }
@@ -24,67 +29,69 @@ namespace Infraestructure.Data  // Espacio de nombres donde se maneja el context
         public DbSet<Ciudad> Ciudades { get; set; }
         public DbSet<Barrio> Barrios { get; set; }
 
-        // Método OnModelCreating utilizado para configurar las entidades y sus relaciones.
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);  // Llama al método base para mantener la configuración predeterminada.
+            base.OnModelCreating(modelBuilder);
 
-            // Configurar claves primarias explícitas
-            modelBuilder.Entity<Departamento>().HasKey(d => d.IdDepartamento);  // Definir la clave primaria de Departamento
-            modelBuilder.Entity<Ciudad>().HasKey(c => c.IdCiudad);  // Definir la clave primaria de Ciudad
-            modelBuilder.Entity<Barrio>().HasKey(b => b.IdBarrio);  // Definir la clave primaria de Barrio
-            modelBuilder.Entity<Carrito>().HasKey(c => c.IdCarrito);  // Definir la clave primaria de Carrito
-            modelBuilder.Entity<DetalleVenta>().HasKey(dv => dv.IdDetalleVenta);  // Definir la clave primaria de DetalleVenta
+            // Claves primarias
+            modelBuilder.Entity<Departamento>().HasKey(d => d.IdDepartamento);
+            modelBuilder.Entity<Ciudad>().HasKey(c => c.IdCiudad);
+            modelBuilder.Entity<Barrio>().HasKey(b => b.IdBarrio);
+            modelBuilder.Entity<Carrito>().HasKey(c => c.IdCarrito);
+            modelBuilder.Entity<DetalleVenta>().HasKey(dv => dv.IdDetalleVenta);
 
-            // Configuración de las relaciones entre las entidades
-
-            // Relación opcional entre Barrio y Departamento
+            // Relaciones
             modelBuilder.Entity<Barrio>()
-                .HasOne(b => b.Departamento)  // Barrio tiene una relación con Departamento
-                .WithMany()  // Un Departamento puede tener muchos Barrios
-                .HasForeignKey(b => b.Fk_IdDepartamento)  // Clave foránea
-                .OnDelete(DeleteBehavior.Restrict);  // Evitar cascada para evitar ciclos
+                .HasOne(b => b.Departamento)
+                .WithMany()
+                .HasForeignKey(b => b.Fk_IdDepartamento)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // Relación opcional entre Barrio y Ciudad
             modelBuilder.Entity<Barrio>()
-                .HasOne(b => b.Ciudad)  // Barrio tiene una relación con Ciudad
-                .WithMany()  // Una Ciudad puede tener muchos Barrios
-                .HasForeignKey(b => b.Fk_IdCiudad)  // Clave foránea
-                .OnDelete(DeleteBehavior.Restrict);  // Evitar cascada para evitar ciclos
+                .HasOne(b => b.Ciudad)
+                .WithMany()
+                .HasForeignKey(b => b.Fk_IdCiudad)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // Relación de DetalleVenta con Venta
             modelBuilder.Entity<DetalleVenta>()
-                .HasOne(dv => dv.Venta)  // DetalleVenta tiene una relación con Venta
-                .WithMany()  // Una Venta puede tener muchos detalles
+                .HasOne(dv => dv.Venta)
+                .WithMany()
                 .HasForeignKey(dv => dv.Fk_IdVenta)
-                .OnDelete(DeleteBehavior.Cascade);  // Eliminar detalles si se elimina la venta
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // Relación de DetalleVenta con Producto
             modelBuilder.Entity<DetalleVenta>()
-                .HasOne(dv => dv.Producto)  // DetalleVenta tiene una relación con Producto
-                .WithMany()  // Un Producto puede estar en muchos detalles de venta
+                .HasOne(dv => dv.Producto)
+                .WithMany()
                 .HasForeignKey(dv => dv.Fk_IdProducto)
-                .OnDelete(DeleteBehavior.Restrict);  // No eliminar Producto si se elimina el detalle
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // Relación entre Ciudad y Departamento: Permitir que la relación sea opcional (clave foránea de tipo string?).
             modelBuilder.Entity<Ciudad>()
-                .HasOne(c => c.Departamento)  // Ciudad tiene una relación con Departamento
-                .WithMany()  // Un Departamento puede tener muchas Ciudades
-                .HasForeignKey(c => c.Fk_IdDepartamento)  // Clave foránea
-                .OnDelete(DeleteBehavior.Cascade);  // Elimina las Ciudades al eliminar el Departamento
+                .HasOne(c => c.Departamento)
+                .WithMany()
+                .HasForeignKey(c => c.Fk_IdDepartamento)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // Definir precisión del campo Total en DetalleVenta
+            // Precisión decimal
             modelBuilder.Entity<DetalleVenta>()
                 .Property(d => d.Total)
                 .HasColumnType("decimal(10,2)");
 
-            // Definir precisión del campo MontoTotal en Venta
             modelBuilder.Entity<Venta>()
                 .Property(v => v.MontoTotal)
-                .HasColumnType("decimal(18,2)"); // O ajusta según tus necesidades
+                .HasColumnType("decimal(18,2)");
 
-            // Aplica las configuraciones de las entidades desde el ensamblado actual.
+            // Aplicar configuración adicional si existe
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        // Si lo deseas, puedes sobrescribir OnConfiguring para pruebas sin inyección de dependencias.
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                // Solo para pruebas o uso sin DI
+                optionsBuilder.UseSqlServer("Server=localhost;Database=TiendaDb;Trusted_Connection=True;");
+            }
         }
     }
 }

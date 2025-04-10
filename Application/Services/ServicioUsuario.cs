@@ -1,7 +1,8 @@
-using Application.Interfaces;
 using Core.Entities;
 using Core.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -9,66 +10,74 @@ namespace Application.Services
     public class ServicioUsuario
     {
         private readonly IRepositorioUsuario _repositorioUsuario;
-        private readonly IServicioCorreo _servicioCorreo; // Interfaz para el servicio de correo
+        private static readonly Random _random = new();
 
-        public ServicioUsuario(IRepositorioUsuario repositorioUsuario, IServicioCorreo servicioCorreo)
+        public ServicioUsuario(IRepositorioUsuario repositorioUsuario)
         {
             _repositorioUsuario = repositorioUsuario;
-            _servicioCorreo = servicioCorreo;
         }
 
-        // Método para crear un nuevo usuario
-        public async Task<Usuario> CrearUsuarioAsync(Usuario usuario)
+        public async Task<bool> CrearUsuario(Usuario usuario)
         {
-            // Lógica de negocio: Validar que el correo no esté en uso
-            var usuarioExistente = await _repositorioUsuario.ObtenerPorCorreoAsync(usuario.Correo);
-            if (usuarioExistente != null)
-            {
-                throw new Exception("El correo electrónico ya está en uso.");
-            }
+            return await _repositorioUsuario.CrearUsuario(usuario);
+        }
 
-            // Agregar el nuevo usuario
+        public async Task AgregarUsuario(Usuario usuario)
+        {
             await _repositorioUsuario.AgregarAsync(usuario);
-
-            return usuario;
         }
 
-        // Método para restablecer la contraseña de un usuario
-        public async Task RestablecerClaveAsync(int idUsuario)
+        public async Task<Usuario?> ObtenerUsuarioPorCorreo(string correo)
         {
-            // Obtener el usuario por id
+            return await _repositorioUsuario.ObtenerPorCorreoAsync(correo);
+        }
+
+        public async Task<IEnumerable<Usuario>> ObtenerUsuarios()
+        {
+            return await _repositorioUsuario.ObtenerTodosAsync();
+        }
+
+        public async Task<Usuario?> ObtenerUsuarioPorId(int id)
+        {
+            return await _repositorioUsuario.ObtenerPorIdAsync(id);
+        }
+
+        public async Task<bool> ActualizarUsuario(Usuario usuario)
+        {
+            var usuarioExistente = await _repositorioUsuario.ObtenerPorIdAsync(usuario.Id);
+            if (usuarioExistente == null)
+                return false;
+
+            await _repositorioUsuario.ActualizarAsync(usuario);
+            return true;
+        }
+
+        public async Task<bool> EliminarUsuario(int id)
+        {
+            var usuario = await _repositorioUsuario.ObtenerPorIdAsync(id);
+            if (usuario == null || usuario.Id == 1)
+                return false;
+
+            await _repositorioUsuario.EliminarAsync(id);
+            return true;
+        }
+
+        public async Task<string?> RestablecerClave(int idUsuario)
+        {
             var usuario = await _repositorioUsuario.ObtenerPorIdAsync(idUsuario);
             if (usuario == null)
-            {
-                throw new Exception("El usuario no existe.");
-            }
+                return null;
 
-            // Generar una nueva clave aleatoria
             var nuevaClave = GenerarClaveAleatoria();
-
-            // Restablecer la clave en el repositorio
             await _repositorioUsuario.RestablecerClaveAsync(idUsuario, nuevaClave);
-
-            // Enviar la nueva clave al correo registrado del usuario
-            var asunto = "Restablecimiento de tu clave de acceso";
-            var cuerpo = $"Hola {usuario.Nombres},\n\nTu nueva clave de acceso es: {nuevaClave}\n\nPor favor, cámbiala en tu siguiente inicio de sesión.";
-
-            await _servicioCorreo.EnviarCorreoAsync(usuario.Correo, asunto, cuerpo);
+            return nuevaClave;
         }
 
-        // Método para generar una clave aleatoria (por ejemplo, de 8 caracteres)
         private string GenerarClaveAleatoria()
         {
-            var random = new Random();
             const string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            char[] clave = new char[8]; // Generamos una clave de 8 caracteres
-
-            for (int i = 0; i < clave.Length; i++)
-            {
-                clave[i] = caracteres[random.Next(caracteres.Length)];
-            }
-
-            return new string(clave);
+            return new string(Enumerable.Repeat(caracteres, 8)
+                .Select(s => s[_random.Next(s.Length)]).ToArray());
         }
     }
 }

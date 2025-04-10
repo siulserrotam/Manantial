@@ -10,6 +10,7 @@ using Application.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Core.Interfaces;
 using Infraestructure.Repositories;
+using Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +21,14 @@ builder.Services.AddDbContext<ContextoTienda>(opciones =>
 // Inyección de dependencias para repositorios
 builder.Services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
 builder.Services.AddScoped<IRepositorioProducto, RepositorioProducto>();
+builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
 
 // Inyección de servicios adicionales
 builder.Services.AddScoped<SemillaContextoTienda>();
 builder.Services.AddScoped<ProductoUrlResolver>();
+
+// ✅ Registro del ServicioUsuario
+builder.Services.AddScoped<ServicioUsuario>();
 
 // Configuración de AutoMapper
 builder.Services.AddAutoMapper(typeof(PerfilesDeMapeo));
@@ -47,13 +52,13 @@ builder.Services.Configure<ApiBehaviorOptions>(opciones =>
 //Configuración de controladores
 builder.Services.AddControllers();
 
-//  Configuración de Swagger
+// Configuración de Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Manantial API", Version = "v1" });
 });
 
-//  Construcción de la aplicación
+// Construcción de la aplicación
 var app = builder.Build();
 
 // Middleware global para manejo de excepciones
@@ -84,19 +89,19 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-//  Configuración de middleware y enrutamiento
+// Configuración de middleware y enrutamiento
 app.UseStatusCodePages(); // Devuelve más detalles de errores HTTP
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization(); // Si no usas autenticación, puedes quitar esto
 app.MapControllers();
 
-//Aplicar migraciones de la base de datos
+// Aplicar migraciones de la base de datos
 await AplicarMigracionesAsync(app);
 
 app.Run();
 
-//  Método para aplicar migraciones automáticamente
+// Método para aplicar migraciones automáticamente
 static async Task AplicarMigracionesAsync(WebApplication app)
 {
     using (var alcance = app.Services.CreateScope())

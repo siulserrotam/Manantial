@@ -5284,11 +5284,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\usuario\\Escritorio\\Manantial\\Api\\Api.csproj",
+      "projectUniqueName": "C:\\Users\\usuario\\Escritorio\\CloneManantial\\Manantial\\Api\\Api.csproj",
       "projectName": "Api",
-      "projectPath": "C:\\Users\\usuario\\Escritorio\\Manantial\\Api\\Api.csproj",
+      "projectPath": "C:\\Users\\usuario\\Escritorio\\CloneManantial\\Manantial\\Api\\Api.csproj",
       "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\usuario\\Escritorio\\Manantial\\Api\\obj\\",
+      "outputPath": "C:\\Users\\usuario\\Escritorio\\CloneManantial\\Manantial\\Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5309,8 +5309,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\usuario\\Escritorio\\Manantial\\Application\\Application.csproj": {
-              "projectPath": "C:\\Users\\usuario\\Escritorio\\Manantial\\Application\\Application.csproj"
+            "C:\\Users\\usuario\\Escritorio\\CloneManantial\\Manantial\\Application\\Application.csproj": {
+              "projectPath": "C:\\Users\\usuario\\Escritorio\\CloneManantial\\Manantial\\Application\\Application.csproj"
             }
           }
         }

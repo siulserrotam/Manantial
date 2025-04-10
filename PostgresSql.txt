@@ -1,0 +1,170 @@
+
+CREATE DATABASE "Devspark"
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LOCALE_PROVIDER = 'libc'
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+-------------------------------------------------------------------------------------
+    
+CREATE TABLE categorias (
+    id_categoria SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+COMMENT ON TABLE categorias
+  IS 'Tabla para el registro de los datos de categorias';
+
+COMMENT ON COLUMN categorias.id_cliente
+  IS 'Identificador único de la categoria';
+COMMENT ON COLUMN categorias.nombre
+  IS 'Nombre de la categoria';
+
+-----------------------------------------------------------------------------------
+
+INSERT INTO Categorias (nombre) VALUES
+('Computadoras'),
+('Laptops'),
+('Tablets'),
+('Smartphones'),
+('Accesorios');
+
+------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION F_Productos_Precio_X_Categoria(
+    categoria_nombre VARCHAR, 
+    precio_min NUMERIC DEFAULT 0, 
+    precio_max NUMERIC DEFAULT 999999, 
+    limite INT DEFAULT 10,
+    orden VARCHAR DEFAULT 'DESC'
+)
+RETURNS TABLE (
+    nombre    VARCHAR, 
+    precio    NUMERIC, 
+    categoria VARCHAR
+) AS $$
+BEGIN
+    RETURN QUERY 
+    EXECUTE format(
+        'SELECT p.nombre, p.precio, c.nombre AS categoria
+        FROM productos p
+        JOIN categorias c ON p.id_categoria = c.id_categoria
+        WHERE c.nombre = $1 
+            AND p.precio BETWEEN $2 AND $3
+        ORDER BY p.precio %s
+        LIMIT $4', 
+        CASE WHEN UPPER(orden) = 'ASC' THEN 'ASC' ELSE 'DESC' END
+    ) 
+    USING categoria_nombre, precio_min, precio_max, limite;
+END;
+$$ LANGUAGE plpgsql;
+
+--------------------------------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE P_ACTUALIZA_STOCK(producto_id INT, nueva_cantidad INT)
+AS $$
+BEGIN
+    UPDATE Productos
+    SET stock = GREATEST(stock + nueva_cantidad, 0)
+    WHERE id_producto = producto_id;
+END;
+$$ LANGUAGE plpgsql;
+
+---------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION F_AUDITORIA_GENERAL() 
+RETURNS TRIGGER AS $$
+DECLARE
+    id_registro INT;
+    columna_id TEXT;
+BEGIN
+    -- Determinar la clave primaria de la tabla afectada
+    SELECT column_name 
+    INTO columna_id
+    FROM information_schema.columns 
+    WHERE table_name = TG_TABLE_NAME
+    AND column_name LIKE 'id_%'
+    ORDER BY ordinal_position
+    LIMIT 1;
+
+    -- Obtener el valor del ID según la operación
+    IF TG_OP = 'INSERT' THEN
+        EXECUTE format('SELECT ($1).%I', columna_id) USING NEW INTO id_registro;
+    ELSIF TG_OP = 'UPDATE' THEN
+        EXECUTE format('SELECT ($1).%I', columna_id) USING NEW INTO id_registro;
+    ELSIF TG_OP = 'DELETE' THEN
+        EXECUTE format('SELECT ($1).%I', columna_id) USING OLD INTO id_registro;
+    END IF;
+
+    -- Insertar en la tabla de auditoría
+    INSERT INTO Auditoria (accion, tabla, id_registro, fecha)
+    VALUES (TG_OP, TG_TABLE_NAME, id_registro, NOW());
+
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER T_Categorias_AUD
+AFTER INSERT OR UPDATE OR DELETE
+ON Categorias
+FOR EACH ROW
+EXECUTE FUNCTION F_AUDITORIA_GENERAL();
+
+CREATE TRIGGER T_Clientes_AUD
+AFTER INSERT OR UPDATE OR DELETE
+ON Clientes
+FOR EACH ROW
+EXECUTE FUNCTION F_AUDITORIA_GENERAL();
+
+CREATE TRIGGER T_Auditoria_Preferencias
+AFTER INSERT OR UPDATE OR DELETE
+ON Preferencias
+FOR EACH ROW
+EXECUTE FUNCTION F_AUDITORIA_GENERAL();
+
+CREATE TRIGGER T_Preferencias_AUD
+AFTER INSERT OR UPDATE OR DELETE
+ON Productos
+FOR EACH ROW
+EXECUTE FUNCTION F_AUDITORIA_GENERAL();
+
+-----------------------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW V_PRODUCTOS_X_CATEGORIA AS
+SELECT pro.id_producto
+,	   pro.nombre nombre_producto
+,	   pro.descripcion
+,	   pro.marca
+,	   pro.precio
+,	   pro.stock
+,	   pro.fecha_ingreso
+,	   cat.id_categoria
+,	   cat.nombre categoria
+FROM productos pro
+JOIN categorias cat ON pro.id_categoria = cat.id_categoria;
+
+COMMENT ON VIEW V_PRODUCTOS_X_CATEGORIA
+  IS 'Vista con información de las preferencias por cliente';
+
+COMMENT ON COLUMN V_PRODUCTOS_X_CATEGORIA.id_producto
+  IS 'Nombres y Apellidos del cliente';
+COMMENT ON COLUMN V_PRODUCTOS_X_CATEGORIA.nombre_producto
+  IS 'Nombre - Modelo del producto';
+COMMENT ON COLUMN V_PRODUCTOS_X_CATEGORIA.descripcion
+  IS 'Descripción detallada del producto';
+COMMENT ON COLUMN V_PRODUCTOS_X_CATEGORIA.marca
+  IS 'Marca o fabricante del producto';
+COMMENT ON COLUMN V_PRODUCTOS_X_CATEGORIA.precio
+  IS 'Precio de venta actual del producto';
+COMMENT ON COLUMN V_PRODUCTOS_X_CATEGORIA.stock
+  IS 'Stock actual del producto';
+COMMENT ON COLUMN V_PRODUCTOS_X_CATEGORIA.fecha_ingreso
+  IS 'Fecha en la que el producto se creó dentro del sistema';
+COMMENT ON COLUMN V_PRODUCTOS_X_CATEGORIA.id_categoria
+  IS 'Identificador único de la categoria';
+COMMENT ON COLUMN V_PRODUCTOS_X_CATEGORIA.categoria
+  IS 'Nombre de la categoria';
+
+  --------------------------------------------------------------------------------------

@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Categorías";
+}
+
+<h1>Categorías</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var categoria in Model)
+            {
+                <tr>
+                    <td>@categoria.Nombre</td>
+                    <td>@categoria.Descripcion</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@categoria.Id" class="btn btn-primary">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@categoria.Id" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">No hay categorías disponibles.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-success">Crear Nueva Categoría</a>

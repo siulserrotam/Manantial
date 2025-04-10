@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Marcas";
+}
+
+<h1>Marcas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* Example data, replace with your model data *@
+        @foreach (var marca in Model)
+        {
+            <tr>
+                <td>@marca.Nombre</td>
+                <td>@marca.Descripcion</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@marca.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@marca.Id" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-success">Crear Nueva Marca</a>
