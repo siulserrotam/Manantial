@@ -12,14 +12,18 @@
     </head>
     <body>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand ps-3" href="@Url.Action("Index", "Home")">Admin Panel</a>
+            <a class="navbar-brand ps-3" href="@Url.Action("Index", "Home")">Manantial</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
             <ul class="navbar-nav ms-auto me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" href="#">Configuración</a></li>
-                        <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                        <li>
+                            <form method="post" action="@Url.Action("CerrarSesion", "Cuentas")">
+                                <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -29,9 +33,14 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Resumen</div>
                             <a class="nav-link" href="@Url.Action("Index", "Home")">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
+                            </a>
+                            <a class="nav-link" href="@Url.Action("Index", "Usuarios")">
+                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                Usuarios
                             </a>
                             <div class="sb-sidenav-menu-heading">Mantenimiento</div>
                             <a class="nav-link" href="@Url.Action("Index", "Categorias")">

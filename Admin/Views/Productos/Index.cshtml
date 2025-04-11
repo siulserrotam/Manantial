@@ -1,9 +1,11 @@
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Productos";
 }
 
 <h1>Productos</h1>
 
+@*
 <table class="table">
     <thead>
         <tr>
@@ -14,7 +16,6 @@
         </tr>
     </thead>
     <tbody>
-        @* Example data, replace with your model data *@
         @foreach (var producto in Model)
         {
             <tr>
@@ -31,3 +32,4 @@
 </table>
 
 <a asp-action="Create" class="btn btn-success">Agregar Producto</a>
+*@

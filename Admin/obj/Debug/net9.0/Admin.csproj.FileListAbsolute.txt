@@ -168,8 +168,8 @@ C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\apps
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\appsettings.json
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\package-lock.json
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\package.json
-C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Admin.staticwebassets.endpoints.json
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Admin.staticwebassets.runtime.json
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Admin.staticwebassets.endpoints.json
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Admin.exe
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Admin.deps.json
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Admin.runtimeconfig.json
@@ -331,3 +331,13 @@ C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\obj\Debug\net9.0\refi
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\obj\Debug\net9.0\Admin.pdb
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\obj\Debug\net9.0\Admin.genruntimeconfig.cache
 C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\obj\Debug\net9.0\ref\Admin.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\usuario\Escritorio\CloneManantial\Manantial\admin\bin\Debug\net9.0\Newtonsoft.Json.Bson.dll

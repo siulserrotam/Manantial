@@ -36,7 +36,7 @@ public class CuentasController : Controller
 
         if (!usuario.Activo)
         {
-            Debug.WriteLine("⚠ Cuenta inactiva.");
+            Debug.WriteLine("Cuenta inactiva.");
             ViewBag.Error = "Cuenta inactiva. Contacte al administrador.";
             return View();
         }
@@ -52,7 +52,7 @@ public class CuentasController : Controller
         Debug.WriteLine("Autenticación exitosa. Estableciendo sesión.");
         HttpContext.Session.SetString("Usuario", usuario.Nombres);
 
-        return RedirectToAction("Panel", "Inicio");
+        return RedirectToAction("Index", "Home"); // Redirigir a la página principal después de iniciar sesión
     }
 
     public IActionResult RecuperarClave()
